@@ -1,9 +1,11 @@
 package br.com.suellencolangelo.rabbits.di
 
 import br.com.suellencolangelo.rabbits.Constants
+import br.com.suellencolangelo.rabbits.data.api.RabbitsApi
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
+import dagger.Reusable
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
@@ -34,5 +36,11 @@ class AppModule {
             .addConverterFactory(MoshiConverterFactory.create())
             .client(okHttpClient)
             .build()
+
+    @Reusable
+    @Provides
+    fun provideRabbitApi(retrofit: Retrofit): RabbitsApi {
+        return retrofit.create(RabbitsApi::class.java)
+    }
 
 }
