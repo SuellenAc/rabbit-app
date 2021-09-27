@@ -2,6 +2,7 @@ package br.com.suellencolangelo.rabbits.di
 
 import br.com.suellencolangelo.rabbits.DispatcherDefaultProvider
 import br.com.suellencolangelo.rabbits.DispatcherProvider
+import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
@@ -10,7 +11,6 @@ import dagger.hilt.components.SingletonComponent
 @Module
 abstract class UtilsModule {
 
-    abstract fun bindDispatcherProvider(
-        dispatcher: DispatcherDefaultProvider
-    ): DispatcherProvider
+    @Binds
+    abstract fun bindDispatcherProvider(dispatcher: DispatcherDefaultProvider): DispatcherProvider
 }
