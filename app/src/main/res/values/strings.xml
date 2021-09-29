@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">rabbits</string>
+    <string name="random_rabbits_screen_title">Random Rabbits</string>
+    <string name="random_rabbits_next">Get Rabbit</string>
 </resources>

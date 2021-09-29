@@ -22,7 +22,8 @@ class RandomRabbitFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                RandomRabbitScreen()
+//
+//                RandomRabbitScreen()
             }
         }
     }
