@@ -89,6 +89,9 @@ dependencies {
     // Moshi Dependencies
     implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
+
+    // Coil Dependency
+    implementation "io.coil-kt:coil-compose:$coil_version"
 }
 
 kapt {
