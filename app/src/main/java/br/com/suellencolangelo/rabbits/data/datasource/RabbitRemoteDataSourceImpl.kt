@@ -1,5 +1,6 @@
 package br.com.suellencolangelo.rabbits.data.datasource
 
+import android.util.Log
 import br.com.suellencolangelo.rabbits.DispatcherProvider
 import br.com.suellencolangelo.rabbits.data.api.RabbitsApi
 import br.com.suellencolangelo.rabbits.data.mapper.RabbitResponseToModelMapper
@@ -25,6 +26,7 @@ class RabbitRemoteDataSourceImpl @Inject constructor(
             }
         }
     } catch (exception: Exception) {
+        Log.d("getRandomRabbit", "getRandomRabbit Api call exception $exception")
         Result.failure(BaseNetworkException.UnknownException)
     }
 }

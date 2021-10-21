@@ -1,7 +1,7 @@
 package br.com.suellencolangelo.rabbits.ui.random
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.suellencolangelo.rabbits.domain.usecase.GetRandomRabbitUseCase
@@ -16,15 +16,17 @@ class RandomRabbitViewModel @Inject constructor(
     private val getRandomRabbitUseCase: GetRandomRabbitUseCase,
     private val rabbitMapper: RabbitModelToUiModelMapper,
 ) : ViewModel() {
-    private val _state = MutableLiveData<UiState>().apply { value = UiState.Loading }
-    val state: LiveData<UiState> = _state
+    var state: MutableState<UiState> = mutableStateOf(UiState.Loading)
+        private set
 
-    fun getRandomRabbit() = viewModelScope.launch {
-        _state.value = UiState.Loading
-        getRandomRabbitUseCase.invoke().onSuccess {
-            _state.value = UiState.Success(rabbitMapper.mapTo(it))
-        }.onFailure {
-            _state.value = UiState.Error
+    fun getRandomRabbit() {
+        viewModelScope.launch {
+            state.value = UiState.Loading
+            getRandomRabbitUseCase.invoke().onSuccess {
+                state.value = UiState.Success(rabbitMapper.mapTo(it))
+            }.onFailure {
+                state.value = UiState.Error
+            }
         }
     }
 }

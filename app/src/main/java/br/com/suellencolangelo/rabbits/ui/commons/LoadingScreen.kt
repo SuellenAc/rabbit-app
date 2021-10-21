@@ -2,6 +2,7 @@ package br.com.suellencolangelo.rabbits.ui.commons
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -17,7 +18,7 @@ fun LoadingScreen() {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .background(Color.White)
     ) {
         val composition by rememberLottieComposition(
@@ -27,7 +28,6 @@ fun LoadingScreen() {
             composition = composition,
             iterations = LottieConstants.IterateForever
         )
-
         LottieAnimation(composition = composition, progress = progress)
     }
 }

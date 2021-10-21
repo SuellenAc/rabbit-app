@@ -16,6 +16,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import br.com.suellencolangelo.rabbits.R
+import br.com.suellencolangelo.rabbits.ui.commons.ErrorScreen
+import br.com.suellencolangelo.rabbits.ui.commons.LoadingScreen
 import br.com.suellencolangelo.rabbits.ui.model.RabbitUiModel
 import br.com.suellencolangelo.rabbits.ui.utils.compose.TextDesignStyle
 import coil.annotation.ExperimentalCoilApi
@@ -25,8 +27,9 @@ import coil.transform.RoundedCornersTransformation
 @ExperimentalCoilApi
 @Composable
 fun RandomRabbitScreen(
-    rabbit: RabbitUiModel,
-    onGetNextClick: () -> Unit
+    uiState: UiState,
+    onGetNextClick: () -> Unit,
+    onTryAgainClick: () -> Unit,
 ) {
     MaterialTheme {
         Column(
@@ -36,12 +39,24 @@ fun RandomRabbitScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Toolbar()
-            RabbitAvatar(rabbit)
-            Name(rabbit)
-            Description(rabbit)
-            GetNextButton(onGetNextClick)
+            when (uiState) {
+                UiState.Error -> ErrorScreen(onTryAgainClick)
+                UiState.Loading -> LoadingScreen()
+                is UiState.Success -> SuccessScreen(uiState.rabbit, onGetNextClick)
+            }
         }
     }
+}
+
+@Composable
+private fun SuccessScreen(
+    rabbit: RabbitUiModel,
+    onGetNextClick: () -> Unit
+) {
+    RabbitAvatar(rabbit)
+    Name(rabbit)
+    Description(rabbit)
+    GetNextButton(onGetNextClick)
 }
 
 @Composable
@@ -109,11 +124,11 @@ private fun RabbitAvatar(rabbit: RabbitUiModel) {
 @ExperimentalCoilApi
 @Composable
 @Preview
-fun PreviewRandomRabbitScreen() {
+fun RandomRabbitScreenPreview() {
     val stubRabbit = RabbitUiModel(
-        "Stuart",
-        "A Happy little rabbit! Stuart likes rainy days.",
+        "Maria",
+        "A Happy little rabbit! Maria likes rainy days.",
         ""
     )
-    RandomRabbitScreen(stubRabbit, {})
+    RandomRabbitScreen(UiState.Success(stubRabbit), {}) {}
 }

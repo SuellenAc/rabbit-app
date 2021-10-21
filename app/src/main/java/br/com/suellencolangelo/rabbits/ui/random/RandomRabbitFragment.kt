@@ -22,10 +22,18 @@ class RandomRabbitFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-//
-//                RandomRabbitScreen()
+                RandomRabbitScreen(
+                    uiState = viewModel.state.value,
+                    onGetNextClick = { viewModel.getRandomRabbit() },
+                    onTryAgainClick = { viewModel.getRandomRabbit() }
+                )
             }
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.getRandomRabbit()
     }
 
     companion object {

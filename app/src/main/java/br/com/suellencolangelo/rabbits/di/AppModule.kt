@@ -33,7 +33,8 @@ class AppModule {
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient, moshi: Moshi, baseUrl: String) =
         Retrofit.Builder()
-            .addConverterFactory(MoshiConverterFactory.create())
+            .baseUrl(baseUrl)
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(okHttpClient)
             .build()
 
